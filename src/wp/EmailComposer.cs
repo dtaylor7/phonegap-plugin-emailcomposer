@@ -1,8 +1,11 @@
 using System;
 using System.Runtime.Serialization;
 using Microsoft.Phone.Tasks;
+using WPCordovaClassLib.Cordova;
+using WPCordovaClassLib.Cordova.Commands;
+using WPCordovaClassLib.Cordova.JSON;
 
-namespace WP7CordovaClassLib.Cordova.Commands
+namespace WPCordovaClassLib.Cordova.Commands
 {
     [DataContract]
     public class Options
@@ -23,7 +26,9 @@ namespace WP7CordovaClassLib.Cordova.Commands
         {
             try
             {
-                Options opts = WP7CordovaClassLib.Cordova.JSON.JsonHelper.Deserialize<Options>(options);
+
+                string[] inputs = JSON.JsonHelper.Deserialize<string[]>(options);
+                Options opts = JSON.JsonHelper.Deserialize<Options>(inputs[0]);
                 EmailComposeTask emailcomposer = new EmailComposeTask();
                 emailcomposer.To = opts.to;
                 emailcomposer.Subject = opts.subject;
